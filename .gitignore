@@ -17,3 +17,14 @@ service/.project
 service/target/
 service/.classpath
 service/.settings
+
+entity/.project
+entity/target/
+entity/.classpath
+entity/.settings
+
+repo/src/main/resources/application.properties
+repo/.project
+repo/target/
+repo/.classpath
+repo/.settings
