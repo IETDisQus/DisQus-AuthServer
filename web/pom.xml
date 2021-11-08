@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.iet.disqus</groupId>
-    <artifactId>oauth2.0</artifactId>
+    <artifactId>oauth2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>web</artifactId>
@@ -12,6 +12,26 @@
   		<groupId>com.iet.disqus</groupId>
  		<artifactId>domain</artifactId>
  		<version>${project.version}</version>
-  		</dependency>
+  	</dependency>
+  		
+  	<dependency>
+  		<groupId>com.iet.disqus</groupId>
+ 		<artifactId>service</artifactId>
+ 		<version>${project.version}</version>
+  	</dependency>
+  	
+  	<dependency>
+  		<groupId>com.iet.disqus</groupId>
+ 		<artifactId>repo</artifactId>
+ 		<version>${project.version}</version>
+  	</dependency>
+  	
+  	<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+	</dependency>
+	
+
  </dependencies>
 </project>

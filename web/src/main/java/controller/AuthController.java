@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+
 public class AuthController {
 	
 	@GetMapping("/")
@@ -17,7 +18,7 @@ public class AuthController {
 	}
 	
 	//Get currently logged-in user
-	@GetMapping("/user")
+	@GetMapping("/currentuser")
 	public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
         return Collections.singletonMap("name", principal.getAttribute("name"));
     }
