@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.iet.disqus</groupId>
-    <artifactId>oauth2.0</artifactId>
+    <artifactId>oauth2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>domain</artifactId>
