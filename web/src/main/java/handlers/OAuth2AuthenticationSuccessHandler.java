@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import config.AppProperties;
+import config.AppConfig;
 import config.HttpCookieOAuth2AuthorizationRequestRepository;
 import exceptions.BadRequestException;
 import utils.CookieProvider;
@@ -28,16 +28,16 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 	private TokenProvider tokenProvider;
 
 	@Autowired
-	private AppProperties appProperties;
+	private AppConfig appConfig;
 
 	@Autowired
 	private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
 	@Autowired
-	OAuth2AuthenticationSuccessHandler(TokenProvider tokenProvider, AppProperties appProperties,
+	OAuth2AuthenticationSuccessHandler(TokenProvider tokenProvider, AppConfig appConfig,
 			HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository) {
 		this.tokenProvider = tokenProvider;
-		this.appProperties = appProperties;
+		this.appConfig= appConfig;
 		this.httpCookieOAuth2AuthorizationRequestRepository = httpCookieOAuth2AuthorizationRequestRepository;
 	}
 
@@ -45,7 +45,9 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		String targetUrl = determineTargetUrl(request, response, authentication);
 		
-		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& "+targetUrl+" &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+		System.out.println("@@@@@@@@@@@ onAuthenticationSuccess @@@@@@@@@@@@@@");
+		
+		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& targetUrl: "+targetUrl+" &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 
 		if (response.isCommitted()) {
 			logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
@@ -60,7 +62,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 	protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 		Optional<String> redirectUri = CookieProvider.getCookie(request, "redirect_uri").map(Cookie::getValue);
 		
-//		System.out.println("$$$$$$ "+ redirectUri.get() + " $$$$$$" );
+		System.out.println("@@@@@@@@@@@  determineTargetUrl @@@@@@@@@@@@@@");
+
+		
+		System.out.println("$$$$$$ "+ redirectUri.get() + " $$$$$$" );
 
 		if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
 			throw new BadRequestException("Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
@@ -68,7 +73,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 		String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
 		
-		System.out.println("########## "+targetUrl+" ###########");
+		System.out.println("########## targetUrl: "+targetUrl+" ###########");
 
 		String token = tokenProvider.createToken(authentication);
 
@@ -81,9 +86,13 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 	}
 
 	private boolean isAuthorizedRedirectUri(String uri) {
+		
+		System.out.println("@@@@@@@@@@@ isAuthorizedRedirectUri  @@@@@@@@@@@@@@");
+
+		
 		URI clientRedirectUri = URI.create(uri);
 
-		return appProperties.getOauth2().getAuthorizedRedirectUris().stream().anyMatch(authorizedRedirectUri -> {
+		return appConfig.getAuthorizedRedirectUris().stream().anyMatch(authorizedRedirectUri -> {
 			// Only validate host and port. Let the clients use different paths if they want
 			// to
 			URI authorizedURI = URI.create(authorizedRedirectUri);

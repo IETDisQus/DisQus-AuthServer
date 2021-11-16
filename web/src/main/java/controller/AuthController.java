@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +19,6 @@ public class AuthController {
 	//Get currently logged-in user
 	@GetMapping("/currentuser")
 	public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-        return Collections.singletonMap("name", principal.getAttribute("name"));
+        return principal.getAttributes();
     }
 }

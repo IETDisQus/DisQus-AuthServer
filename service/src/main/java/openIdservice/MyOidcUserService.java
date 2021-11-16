@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 
 import customservice.CustomUserService;
+import dto.UserDTO;
 import exceptions.OAuth2AuthenticationProcessingException;
 
 @Service
@@ -26,6 +27,11 @@ public class MyOidcUserService extends OidcUserService {
 			ex.printStackTrace();
 			throw new OAuth2AuthenticationProcessingException(ex.getMessage(), ex.getCause());
 		}
+	}
+
+	public static UserDTO loadUserById(String string) {
+		
+		return null;
 	}
 
 }

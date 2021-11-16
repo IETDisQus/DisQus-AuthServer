@@ -20,6 +20,9 @@ public class HttpCookieOAuth2AuthorizationRequestRepository  implements Authoriz
 
 	@Override
 	public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest request) {
+		
+		System.out.println("inside loadAuthorizationRequest");
+
 	
 		return CookieProvider.getCookie(request, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME).map(cookie -> CookieProvider
 				.deserialize(cookie, OAuth2AuthorizationRequest.class))
