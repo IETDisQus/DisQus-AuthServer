@@ -123,7 +123,7 @@ public class CustomUserServiceImpl implements CustomUserService{
 		User user = new User();
 		user.setEmail((String) attributes.get("email"));
         user.setUserId((String) attributes.get("sub"));
-        user.setImageUrl((String) attributes.get("picture"));
+        user.setPictureUrl((String) attributes.get("picture"));
         user.setName((String) attributes.get("name"));
 		
         UserDTO userDto = new UserDTO(user, attributes,idToken,userInfo);

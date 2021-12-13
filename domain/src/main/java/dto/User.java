@@ -21,11 +21,11 @@ public class User {
 	public void setEmail(String email) {
 		this.userEmail = email;
 	}
-	public String getImageUrl() {
+	public String getPictureUrl() {
 		return pictureUrl;
 	}
-	public void setImageUrl(String imageUrl) {
-		this.pictureUrl = imageUrl;
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
 	}
 	
 	public String getName() {
@@ -36,7 +36,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", email=" + userEmail + ", imageUrl=" + pictureUrl + "]";
+		return "User [userId=" + userId + ", email=" + userEmail + ", pictureUrl=" + pictureUrl + "]";
 	}
 
 }
